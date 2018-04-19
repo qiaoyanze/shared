@@ -62,14 +62,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- <filter>
+	<filter>
 		<filter-name>SessionFilter</filter-name>
 		<filter-class>com.cisau.common.filter.SessionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SessionFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	
 	<session-config>
 		<session-timeout>60</session-timeout>

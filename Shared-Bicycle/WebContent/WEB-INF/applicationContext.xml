@@ -72,7 +72,7 @@
 		<!--注入sqlSessionFactory -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 		<!--定义扫描的包接口 -->
-		<property name="basePackage" value="com.gome.dao.conf" />
+		<property name="basePackage" value="com.cisau.dao" />
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

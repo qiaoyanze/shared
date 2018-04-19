@@ -6,8 +6,8 @@ public class Bike {
 
 	private String bikeCode;
 	private String bikePassword;
-	private double place; // 投放点
-	private int isRepair; // 是否报修 0：未报修，1：已报修
+	private String place; // 投放点
+	private int status = 1; // 单车状态- 1：正常，2：报修，3：回收下线
 	private Date repairTime; // 报修时间
 
 	public String getBikeCode() {
@@ -26,20 +26,20 @@ public class Bike {
 		this.bikePassword = bikePassword;
 	}
 
-	public double getPlace() {
+	public String getPlace() {
 		return place;
 	}
 
-	public void setPlace(double place) {
+	public void setPlace(String place) {
 		this.place = place;
 	}
 
-	public int getIsRepair() {
-		return isRepair;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setIsRepair(int isRepair) {
-		this.isRepair = isRepair;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getRepairTime() {

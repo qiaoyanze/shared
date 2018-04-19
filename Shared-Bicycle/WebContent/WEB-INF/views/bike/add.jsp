@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/include.jsp"%>
 
 <!-- 新增 -->
-	<div class="modal fade" id="addUserModal" tabindex="-1"
+	<div class="modal fade" id="bike_manage_add_modal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content"  style="width: 700px;">
@@ -14,7 +14,7 @@
 					<h4 class="modal-title" id="myModalLabel">新增</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form" id="addUserForm">
+					<form class="form-horizontal" role="form" id="bike_manage_add_form">
 						<div class="form-group">
 							<label for="inputText" class="col-sm-2 control-label"><i style="color: red;">*</i> 账号：</label>
 							<div class="col-sm-10">
@@ -33,14 +33,14 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="addUser">确定</button>
+					<button type="button" class="btn btn-primary" id="bike_manage_add_btn">确定</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	<!-- 编辑 -->
-	<div class="modal fade" id="updateUserModal" tabindex="-1"
+	<div class="modal fade" id="bike_manage_update_modal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width: 700px;">
 			<div class="modal-content">
@@ -51,7 +51,7 @@
 					<h4 class="modal-title" id="myModalLabel">编辑</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form" id="updateUserForm">
+					<form class="form-horizontal" role="form" id="bike_manage_update_form">
 						<div class="form-group">
 							<label for="inputText" class="col-sm-2 control-label"><i style="color: red;">*</i> 账号：</label>
 							<div class="col-sm-10">
@@ -69,7 +69,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="updateUser">确定</button>
+					<button type="button" class="btn btn-primary" id="bike_manage_update_btn">确定</button>
 				</div>
 			</div>
 		</div>

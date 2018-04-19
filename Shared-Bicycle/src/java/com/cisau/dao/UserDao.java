@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.cisau.model.User;
+import com.cisau.model.UserInfo;
 
 public interface UserDao {
 
@@ -14,7 +15,13 @@ public interface UserDao {
 	 * @param user
 	 * @return
 	 */
-	int insert(User user);
+	int insertUser(User user);
+
+	int insertUserInfo(UserInfo userInfo);
+	
+	int updateUser(User user);
+
+	int updateUserInfo(UserInfo userInfo);
 
 	/**
 	 * 根据账号查询用户
@@ -22,10 +29,12 @@ public interface UserDao {
 	 * @param account
 	 * @return
 	 */
-	User queryByAccount(String account);
+	User queryUserByAccount(@Param("account") String account);
+
+	UserInfo queryUserInfoByAccount(@Param("account") String account);
 
 	int countUsers();
-	
+
 	/**
 	 * 分页查询所有用户
 	 * 
@@ -33,5 +42,5 @@ public interface UserDao {
 	 * @param pageOffset
 	 * @return
 	 */
-	List<User> queryUsers(@Param("pageSize") int pageSize, @Param("pageOffset") int pageOffset);
+	List<User> queryUsers(@Param("pageOffset") int pageOffset, @Param("pageSize") int pageSize);
 }

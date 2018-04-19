@@ -1,11 +1,16 @@
 package com.cisau.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 5587743650727874749L;
 
 	private String account;
 	private String password;
 	private int role; // 1:管理员，2：维修人员，3：用户
-	private double place; // 所处位置
+	private Integer status; // 是否激活-1：激活，0：未激活
+	private UserInfo userInfo;
 
 	public String getAccount() {
 		return account;
@@ -31,11 +36,23 @@ public class User {
 		this.role = role;
 	}
 
-	public double getPlace() {
-		return place;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setPlace(double place) {
-		this.place = place;
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 }

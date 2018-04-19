@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cisau.dao.BikeDao">
+	<insert id="insert" parameterType="Object">
+		INSERT INTO `t_bike` 
+			(`bike_code`, `bike_password`, `place`, `status`, `repair_time`) 
+		VALUES 
+			(#{bikeCode}, #{bikePassword}, #{place}, #{status}, #{repairTime})
+	</insert>
+	
+	<update id="update">
+		UPDATE t_bike
+		<set>
+			<if test="place != null and place != ''">
+				place = #{place},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="repairTime != null and repairTime != ''">
+				repair_time = #{repairTime},
+			</if>
+		</set>
+		WHERE bike_code = #{bikeCode}
+	</update>
+	
+	<select id="queryByCode" resultType="com.cisau.model.Bike">
+		SELECT * FROM t_bike WHERE bike_code = #{bikeCode}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM t_bike
+	</select>
+	
+	<select id="queryList" resultType="com.cisau.model.Bike">
+		SELECT * FROM t_bike LIMIT #{pageOffset},#{pageSize}
+	</select>
+</mapper>

@@ -10,12 +10,20 @@
 <title>管理平台</title>
 <link rel="stylesheet" type="text/css"
 	href='<c:url value="/web-resources/libs/bootstrap-3.1.1/css/bootstrap.min.css"/>'>
-<link rel="stylesheet" type="text/css"
-	href='<c:url value="/web-resources/css/style.css"/>'>
+</head>
 <body>
 	
 	<div class="container" style="padding-top: 10px">
-		<div align="right" style="margin-bottom: 10px; padding-right: 10px;">您好，${sessionScope.login_user.nickname }，<a href="/logout" id="logout">退出</a></div>
+		<div align="right" style="margin-bottom: 10px; padding-right: 10px;">
+			您好,
+			<c:choose>
+				<c:when test="${sessionScope.login_user.role eq 3}">
+					${sessionScope.user_info.nickname},
+				</c:when>
+				<c:otherwise>${sessionScope.login_user.account},</c:otherwise>
+			</c:choose>  
+			<a href="/logout" id="logout">退出</a>
+		</div>
 		<div class="panel panel-primary">
 			<div class="panel-heading text-center">
 				<h3 class="panel-title">共享单车管理平台</h3>
@@ -59,27 +67,12 @@
 	                           <a href="javascript:void(0)" id="user_info">基本信息</a>
 	                        </li>
 	                        <li class="list-group-item">
-	                           <a href="javascript:void(0)" id="repair_bike">附近车辆</a>
+	                           <a href="javascript:void(0)" id="rent_bike">附近车辆</a>
+	                        </li>
+	                        <li class="list-group-item">
+	                           <a href="javascript:void(0)" id="recharge">我要充值</a>
 	                        </li>
 	                    </c:if>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="licai">美易理财</a>
-                       </li>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="meijie">美借</a>
-                       </li>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="meiyifen">美易分</a>
-                       </li>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="jinchao_overview">金超概览</a>
-                       </li>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="jinchao_region">金超大区分析</a>
-                       </li>
-                       <li class="list-group-item">
-                         <a href="javascript:void(0)" id="jinchao_minister">保险部长分析</a>
-                       </li>
                      </ul>
                 </div>
             </div>
@@ -91,16 +84,15 @@
         </div>
 	</div>
 	
-	<%@ include file="/WEB-INF/views/user/userAdd.jsp"%>
-	<%@ include file="/WEB-INF/views/alert.jsp"%>
-
 	<script type="text/javascript"
 		src='<c:url value="/web-resources/libs/jquery/jquery-2.1.1.js"/>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/web-resources/libs/bootstrap-3.1.1/js/bootstrap.js"/>'></script>
 	<script type="text/javascript"
-		src='<c:url value="/web-resources/libs/dropzone.js"/>'></script>
+		src='<c:url value="/web-resources/js/index.js"/>'></script>
 	<script type="text/javascript"
-		src='<c:url value="/web-resources/js/common.js"/>'></script>
+		src='<c:url value="/web-resources/js/user_manage.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/web-resources/js/bike_manage.js"/>'></script>
 </body>
 </html>

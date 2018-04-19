@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cisau.dao.UserDao">
+	<insert id="insertUser" parameterType="Object">
+		INSERT INTO `t_user` 
+			(`account`, `password`, `role`) 
+		VALUES 
+			(#{account}, #{password}, #{role})
+	</insert>
+	
+	<insert id="insertUserInfo" parameterType="Object">
+		INSERT INTO `t_user_info` 
+			(`account`, `nickname`, `place`, `balance`) 
+		VALUES 
+			(#{account}, #{nickname}, #{place}, #{balance})
+	</insert>
+	
+	<update id="updateUser">
+		UPDATE t_user
+		<set>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		WHERE account = #{account}
+	</update>
+	
+	<update id="updateUserInfo">
+		UPDATE t_user_info
+		<set>
+			<if test="nickname != null and nickname != ''">
+				nickname = #{nickname},
+			</if>
+			<if test="place != null and place != ''">
+				place = #{place},
+			</if>
+			<if test="balance != null and balance != ''">
+				balance = #{balance},
+			</if>
+		</set>
+		WHERE account = #{account}
+	</update>
+	
+	<select id="queryUserByAccount" resultType="com.cisau.model.User">
+		SELECT * FROM t_user WHERE account = #{account}
+	</select>
+	
+	<select id="queryUserInfoByAccount" resultType="com.cisau.model.UserInfo">
+		SELECT * FROM t_user_info WHERE account = #{account}
+	</select>
+	
+	<select id="countUsers" resultType="int">
+		SELECT COUNT(*) FROM t_user WHERE role = 3
+	</select>
+	
+	<select id="queryUsers" resultType="com.cisau.model.User">
+		SELECT
+			t1.account,
+			t1.status,
+			t2.nickname AS 'userInfo.nickname',
+			t2.place AS 'userInfo.place',
+			t2.balance AS 'userInfo.balance'
+		FROM
+			t_user t1
+		LEFT JOIN t_user_info t2 ON t1.account = t2.account
+		WHERE
+			t1.role = 3
+		LIMIT #{pageOffset},#{pageSize}
+	</select>
+</mapper>

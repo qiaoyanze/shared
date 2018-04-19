@@ -16,7 +16,6 @@ $(document).ready(function() {
 		
 		var account = $("#account").val().trim();
 		var pwd = $("#passwd").val();
-//		var md5_pwd = hex_md5(pwd);
 		$.ajax({
 			url: "/login",
 			method: "POST",
@@ -37,9 +36,9 @@ $(document).ready(function() {
 						$.cookie('account', account, { expires: 7 });
 						$.cookie('passwd', pwd, { expires: 7 });
 					}
-					window.location = "/main";
+					window.location = "/index";
 				} else {
-					var errmsg = result.errmsg;
+					var errmsg = result.msg;
 					if(null != result.data) errmsg = errmsg  +"-"+ result.data;
 					$("#errorMsg").html("<div class='errorTip'>"+errmsg+"</div>");
 					return false;
