@@ -15,9 +15,9 @@
 <body>
 	
 	<div class="container" style="padding-top: 10px">
+		<div align="right" style="margin-bottom: 10px; padding-right: 10px;">您好，${sessionScope.login_user.nickname }，<a href="/logout" id="logout">退出</a></div>
 		<div class="panel panel-primary">
 			<div class="panel-heading text-center">
-				<div align="right">您好，${sessionScope.login_user.nickname }，<a href="/logout" id="logout">退出</a></div>
 				<h3 class="panel-title">共享单车管理平台</h3>
 			</div>
 		</div>

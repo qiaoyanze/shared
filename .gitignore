@@ -1,1 +1,4 @@
 .settings
+classes
+/Shared-Bicycle/*.project
+/Shared-Bicycle/*.classpath
