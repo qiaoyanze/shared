@@ -38,10 +38,11 @@ var bike_manage = {
 		add : function() {
 			$('#bike_manage_add_btn').on('click',function(){
 				var bikeCode = $('#bike_manage_add_form').find('#bikeCode').val();
-				$.get('/bike/exists',{'bikeCode':bikeCode},function(result){
+				$.get('/bike/exists',{},function(result){
 					var code = result.code;
+					var msg = result.msg;
 					if (code == 200) {
-						warning_prompt('单车已存在',1000);
+						warning_prompt(msg,1000);
 						return;
 					} else {
 						var param = $('#bike_manage_add_form').serialize();
@@ -67,7 +68,7 @@ var bike_manage = {
 				var param = $('#bike_manage_update_form').serialize();
 				$.post('/bike/update',param,function(result) {
 					var code = result.code;
-					var msg = data.msg;
+					var msg = result.msg;
 					if(code == 200) {
 						success_prompt(msg,1000);
 						var curPage = $('#bike_manage_table').find('#curPage').val();
@@ -96,8 +97,13 @@ var bike_manage = {
 				$(this).on('click',function(){
 					var bike_code = $(this).attr('bike_code');
 					// 初始化数据
-					$.get('/bike/'+bike_code,{bikeCode:bike_code},function(result){
-						
+					$.get('/bike/'+bike_code,{},function(result){
+						var code = result.code;
+						var msg = result.msg;
+						if (code == 200) {
+							var data = result.data;
+							
+						}
 					});
 					
 					// 弹出添加对话框
@@ -119,7 +125,7 @@ var bike_manage = {
 		    $('#bike_manage_update_modal').on('hidden.bs.modal', function (e) {
 		    	$('#bike_manage_update_form')[0].reset();
 		   	})
-		},
+		}
 }
 
 var myModal = {

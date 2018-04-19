@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,26 @@ public class BikeController {
 	@Autowired
 	private BikeService bikeService;
 
+	@GetMapping(value = "exists")
+	public ResponseEntity exists(String bikeCode) {
+		Bike bike = this.bikeService.queryByCode(bikeCode);
+		if (bike == null) {
+			return new ResponseEntity(500, "单车不存在，允许添加");
+		} else {
+			return new ResponseEntity(200, "单车已存在");
+		}
+	}
+	
+	@GetMapping(value = "{bikeCode}")
+	public ResponseEntity queryByCode(@PathVariable("bikeCode") String bikeCode) {
+		Bike bike = this.bikeService.queryByCode(bikeCode);
+		if (bike == null) {
+			return new ResponseEntity(500, "没有此单车");
+		}
+		
+		return new ResponseEntity(200, "", bike);
+	}
+	
 	@GetMapping(value = "list")
 	public String list(Model model) {
 		Pager pager = this.bikeService.list();
