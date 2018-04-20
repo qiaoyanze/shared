@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,17 @@ public class LoginController {
 	@GetMapping(value = "register")
 	public String registerPage() {
 		return "register";
+	}
+	
+	@GetMapping(value = "register/{account}")
+	@ResponseBody
+	public ResponseEntity userQuery(@PathVariable("account") String account) {
+		User user = this.userService.queryByAccount(account);
+		if (user == null) {
+			return new ResponseEntity(200, "账号没有注册");
+		} else {
+			return new ResponseEntity(500, "账号已注册");
+		}
 	}
 
 	@PostMapping(value = "register")
@@ -66,13 +78,24 @@ public class LoginController {
 			if (user == null) {
 				return new ResponseEntity(500, "用户名或密码不正确");
 			}
+
 			
-			if (0 == user.getStatus()) {
-				return new ResponseEntity(500, "账号未激活，请联系管理员");
+			if (User.ROLE_USER == user.getRole()) {
+				if (2 == user.getUserInfo().getStatus()) {
+					return new ResponseEntity(500, "账号已冻结，请联系管理员");
+				}
+				
+				session.setAttribute(CommonConstants.USER_INFO, user.getUserInfo());
+			}
+			
+			if (User.ROLE_REPAIR == user.getRole()) {
+				if (user.getRepairInfo().getIsPass() == 3) {
+					return new ResponseEntity(500, "审核未通过,账号不可用");
+				}
+				session.setAttribute(CommonConstants.REPAIR_INFO, user.getRepairInfo());
 			}
 			
 			session.setAttribute(CommonConstants.LOGIN_USER, user);
-			session.setAttribute(CommonConstants.USER_INFO, user.getUserInfo());
 		} catch (Exception e) {
 			logger.error("查找用户[{}]异常", account, e);
 			return new ResponseEntity(500, "登录失败");

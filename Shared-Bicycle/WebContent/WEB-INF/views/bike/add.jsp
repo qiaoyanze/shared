@@ -16,17 +16,20 @@
 				<div class="modal-body">
 					<form class="form-horizontal" role="form" id="bike_manage_add_form">
 						<div class="form-group">
-							<label for="inputText" class="col-sm-2 control-label"><i style="color: red;">*</i> 账号：</label>
+							<label for="inputText" class="col-sm-2 control-label">单车品牌：</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="account"
-									name="account" placeholder="账号">
+								<select class="form-control" name="bikeBrand">
+								  <option value="1">ofo单车</option>
+								  <option value="2">摩拜单车</option>
+								  <option value="3">哈罗单车</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputText" class="col-sm-2 control-label">表名：</label>
+							<label for="inputText" class="col-sm-2 control-label">投放位置：</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" id="busType" name="busType"
-								placeholder="表名,多个之间以英文字符逗号分隔,必须与各模板中名称一致"></textarea>
+								<input type="text" class="form-control" id="place"
+									name="place" placeholder="投放位置">
 							</div>
 						</div>
 					</form>
@@ -53,16 +56,28 @@
 				<div class="modal-body">
 					<form class="form-horizontal" role="form" id="bike_manage_update_form">
 						<div class="form-group">
-							<label for="inputText" class="col-sm-2 control-label"><i style="color: red;">*</i> 账号：</label>
+							<label for="inputText" class="col-sm-2 control-label">单车号码：</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="account" readonly="readonly"
-									name="account" placeholder="账号">
+								<input type="text" class="form-control" id="bikeCode"
+									name="bikeCode" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputText" class="col-sm-2 control-label">表名：</label>
+							<label for="inputText" class="col-sm-2 control-label">单车品牌：</label>
+							<input type="hidden" id="bikeBrand_req" name="bikeBrand"/>
 							<div class="col-sm-10">
-								<textarea class="form-control" id="busType" name="busType" placeholder="表名,多个之间以英文字符逗号分隔,必须与各模板中名称一致"></textarea>
+								<select class="form-control" id="bikeBrand" disabled="disabled">
+								  <option value="1">ofo单车</option>
+								  <option value="2">摩拜单车</option>
+								  <option value="3">哈罗单车</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputText" class="col-sm-2 control-label">投放位置：</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="place"
+									name="place" placeholder="投放位置">
 							</div>
 						</div>
 					</form>

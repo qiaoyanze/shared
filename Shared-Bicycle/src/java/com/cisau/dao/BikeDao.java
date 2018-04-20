@@ -17,4 +17,8 @@ public interface BikeDao {
 	int count();
 
 	List<Bike> queryList(@Param("pageOffset") int pageOffset, @Param("pageSize") int pageSize);
+
+	int countRepairBike();
+
+	List<Bike> queryRepairBikes(@Param("pageOffset") int pageOffset, @Param("pageSize") int pageSize);
 }

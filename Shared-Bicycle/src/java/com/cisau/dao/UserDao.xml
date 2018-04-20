@@ -10,9 +10,16 @@
 	
 	<insert id="insertUserInfo" parameterType="Object">
 		INSERT INTO `t_user_info` 
-			(`account`, `nickname`, `place`, `balance`) 
+			(`account`, `nickname`, `gender`, `birthday`, `balance`) 
 		VALUES 
-			(#{account}, #{nickname}, #{place}, #{balance})
+			(#{account}, #{nickname}, #{gender}, #{birthday}, #{balance})
+	</insert>
+	
+	<insert id="insertRepairInfo" parameterType="Object">
+		INSERT INTO `t_repair_info`
+			(`account`, `realname`, `id_no`, `mobile`, `gender`, `birthday`, `is_pass`) 
+		VALUES 
+			(#{account}, #{realname}, #{idNo}, #{mobile}, #{gender}, #{birthday}, #{isPass})
 	</insert>
 	
 	<update id="updateUser">
@@ -20,9 +27,6 @@
 		<set>
 			<if test="password != null and password != ''">
 				password = #{password},
-			</if>
-			<if test="status != null">
-				status = #{status},
 			</if>
 		</set>
 		WHERE account = #{account}
@@ -34,11 +38,42 @@
 			<if test="nickname != null and nickname != ''">
 				nickname = #{nickname},
 			</if>
-			<if test="place != null and place != ''">
-				place = #{place},
+			<if test="gender != null and gender != 0">
+				gender = #{gender},
+			</if>
+			<if test="birthday != null and birthday != ''">
+				birthday = #{birthday},
 			</if>
 			<if test="balance != null and balance != ''">
 				balance = #{balance},
+			</if>
+			<if test="status != null and status != 0">
+				status = #{status},
+			</if>
+		</set>
+		WHERE account = #{account}
+	</update>
+	
+	<update id="updateRepairInfo">
+		UPDATE t_repair_info
+		<set>
+			<if test="realname != null and realname != ''">
+				realname = #{realname},
+			</if>
+			<if test="idNo != null and idNo != ''">
+				id_no = #{idNo},
+			</if>
+			<if test="mobile != null and mobile != 0">
+				mobile = #{mobile},
+			</if>
+			<if test="gender != null and gender != 0">
+				gender = #{gender},
+			</if>
+			<if test="birthday != null and birthday != ''">
+				birthday = #{birthday},
+			</if>
+			<if test="isPass != null and isPass != 0">
+				is_pass = #{isPass},
 			</if>
 		</set>
 		WHERE account = #{account}
@@ -52,22 +87,69 @@
 		SELECT * FROM t_user_info WHERE account = #{account}
 	</select>
 	
+	<select id="queryRepairInfoByAccount" resultType="com.cisau.model.RepairInfo">
+		SELECT * FROM t_repair_info WHERE account = #{account}
+	</select>
+	
 	<select id="countUsers" resultType="int">
-		SELECT COUNT(*) FROM t_user WHERE role = 3
+		SELECT COUNT(*) FROM t_user WHERE role = #{role}
 	</select>
 	
 	<select id="queryUsers" resultType="com.cisau.model.User">
 		SELECT
 			t1.account,
-			t1.status,
 			t2.nickname AS 'userInfo.nickname',
-			t2.place AS 'userInfo.place',
-			t2.balance AS 'userInfo.balance'
+			t2.gender AS 'userInfo.gender',
+			t2.birthday AS 'userInfo.birthday',
+			t2.balance AS 'userInfo.balance',
+			t2.status AS 'userInfo.status'
 		FROM
 			t_user t1
 		LEFT JOIN t_user_info t2 ON t1.account = t2.account
 		WHERE
-			t1.role = 3
+			t1.role = #{role}
+		LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countRepairUsers" resultType="int">
+		SELECT COUNT(*) FROM t_user WHERE role = #{role}
+	</select>
+	
+	<select id="queryRepairUsers" resultType="com.cisau.model.User">
+		SELECT
+			t1.account,
+			t2.realname AS 'repairInfo.realname',
+			t2.id_no AS 'repairInfo.idNo',
+			t2.mobile AS 'repairInfo.mobile',
+			t2.gender AS 'repairInfo.gender',
+			t2.birthday AS 'repairInfo.birthday',
+			t2.is_pass AS 'repairInfo.isPass'
+		FROM
+			t_user t1
+		LEFT JOIN t_repair_info t2 ON t1.account = t2.account
+		WHERE
+			t1.role = #{role}
+		LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countNearBike" resultType="int">
+		SELECT COUNT(*) FROM t_user WHERE role = #{role}
+	</select>
+	
+	<select id="queryNearBikes" resultType="com.cisau.model.User">
+		SELECT
+			t1.account,
+			t2.realname AS 'repairInfo.realname',
+			t2.id_no AS 'repairInfo.idNo',
+			t2.mobile AS 'repairInfo.mobile',
+			t2.gender AS 'repairInfo.gender',
+			t2.birthday AS 'repairInfo.birthday',
+			t2.is_pass AS 'repairInfo.isPass'
+		FROM
+			t_user t1
+		LEFT JOIN t_repair_info t2 ON t1.account = t2.account
+		WHERE
+			t1.role = #{role}
 		LIMIT #{pageOffset},#{pageSize}
 	</select>
 </mapper>

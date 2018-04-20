@@ -48,6 +48,7 @@ private static final Logger LOGGER = LogManager.getLogger();
 			// 用户未登录时，可以访问的页面URL，过滤掉
 			List<String> exceptionURLs = new ArrayList<String>();
 			exceptionURLs.add("login");
+			exceptionURLs.add("register");
 			exceptionURLs.add("web-resources");
 			// 是否包含未登录也可访问的URL
 			boolean hasRight = false;

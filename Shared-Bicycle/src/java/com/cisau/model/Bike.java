@@ -6,8 +6,9 @@ public class Bike {
 
 	private String bikeCode;
 	private String bikePassword;
+	private int bikeBrand; // 单车品牌-1：ofo单车,2：摩拜单车，3：哈罗单车
 	private String place; // 投放点
-	private int status = 1; // 单车状态- 1：正常，2：报修，3：回收下线
+	private int status; // 单车状态- 1：正常，2：报修，3：回收下线
 	private Date repairTime; // 报修时间
 
 	public String getBikeCode() {
@@ -26,20 +27,28 @@ public class Bike {
 		this.bikePassword = bikePassword;
 	}
 
+	public int getBikeBrand() {
+		return bikeBrand;
+	}
+
+	public void setBikeBrand(int bikeBrand) {
+		this.bikeBrand = bikeBrand;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+	
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public Date getRepairTime() {

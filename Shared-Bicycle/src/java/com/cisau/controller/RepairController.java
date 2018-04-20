@@ -13,64 +13,49 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cisau.common.model.Pager;
 import com.cisau.common.model.ResponseEntity;
-import com.cisau.model.UserInfo;
-import com.cisau.service.UserService;
+import com.cisau.model.RepairInfo;
+import com.cisau.service.RepairService;
 
 @Controller
-@RequestMapping(value = "user")
-public class UserController {
+@RequestMapping(value = "repair")
+public class RepairController {
 
 	private Logger logger = LogManager.getLogger(getClass());
-	
+
 	@Autowired
-	private UserService userService;
-	
+	private RepairService repairService;
+
 	@GetMapping(value = "list")
-	public String userManage(Model model) {
-		Pager pager = this.userService.list();
+	public String list(Model model) {
+		Pager pager = this.repairService.list();
 		model.addAttribute("pager", pager);
-		return "user/list";
+		return "repair/list";
 	}
 	
 	@PostMapping(value = "update")
 	@ResponseBody
-	public ResponseEntity update(UserInfo userinfo) {
+	public ResponseEntity update(RepairInfo repairInfo) {
+		if (repairInfo == null) {
+			return new ResponseEntity(500, "操作失败");
+		}
+
 		try {
-			int i = this.userService.updateUserInfo(userinfo );
+			int i = this.repairService.update(repairInfo);
 			if (i <= 0) {
 				return new ResponseEntity(500, "操作失败");
 			}
 		} catch (Exception e) {
-			logger.error("更新用户[{}]的状态异常", userinfo.getAccount(), e);
+			logger.error("审批维修人[{}]异常", repairInfo.getAccount(), e);
 			return new ResponseEntity(500, "操作失败");
 		}
-		
+
 		return new ResponseEntity(200, "操作成功");
 	}
 	
 	@GetMapping(value = "info/{account}")
 	public String info(@PathVariable("account") String account, Model model) {
-		UserInfo info = this.userService.info(account);
+		RepairInfo info = this.repairService.info(account);
 		model.addAttribute("info", info);
-		return "user/info";
-	}
-	
-	@GetMapping(value = "balance/{account}")
-	public String blance(@PathVariable("account") String account, Model model) {
-		UserInfo info = this.userService.info(account);
-		model.addAttribute("balance", info.getBalance());
-		return "user/balance";
-	}
-	
-	@GetMapping(value = "nearbike")
-	public String nearBike() {
-		return "user/nearBike";
-	}
-	
-	@GetMapping(value = "nearbike/list")
-	public String nearBikeList(String place, Model model) {
-		Pager pager = this.userService.nearBikeList(place);
-		model.addAttribute("pager", pager);
-		return "user/nearBikeList";
+		return "repair/info";
 	}
 }

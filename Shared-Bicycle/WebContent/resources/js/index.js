@@ -8,38 +8,29 @@ var obj = {
 			bike_manage.list(1);
 		});
 		$('#repair_manage').on('click', function() {
-			$('#content').load("/repair/manage",function(){
-				repair_manage.init();
-			});
+			repair_manage.list(1);
 		});
 		
 		// 维修人员功能
 		$('#repair_info').on('click', function() {
-			$('#content').load("/repair/info",function(){
-				repair_info.init();
-			});
+			repair_manage.info();
 		});
+		
 		$('#repair_bike').on('click', function() {
-			$('#content').load("/repair/bike",function(){
-				repair_bike.init();
-			});
+			repair_bike.list(1);
 		});
 		
 		// 用户功能
 		$('#user_info').on('click', function() {
-			$('#content').load("/user/info",function(){
-				user_info.init();
-			});
+			user_manage.info();
 		});
 		$('#rent_bike').on('click', function() {
 			$('#content').load("/user/rentbike",function(){
 				rent_bike.init();
 			});
 		});
-		$('#recharge').on('click', function() {
-			$('#content').load("/user/recharge",function(){
-				recharge.init();
-			});
+		$('#balance').on('click', function() {
+			user_manage.balance();
 		});
 	}
 }

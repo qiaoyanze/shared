@@ -14,11 +14,18 @@
 <body>
 	
 	<div class="container" style="padding-top: 10px">
+		<input type="hidden" id="login_account" value="${sessionScope.login_user.account}"/>
 		<div align="right" style="margin-bottom: 10px; padding-right: 10px;">
 			您好,
 			<c:choose>
+				<c:when test="${sessionScope.login_user.role eq 1}">
+					管理员_admin,
+				</c:when>
+				<c:when test="${sessionScope.login_user.role eq 2}">
+					维修人员_${sessionScope.repair_info.realname},
+				</c:when>
 				<c:when test="${sessionScope.login_user.role eq 3}">
-					${sessionScope.user_info.nickname},
+					尊敬的用户_${sessionScope.user_info.nickname}_${sessionScope.user_info.account},
 				</c:when>
 				<c:otherwise>${sessionScope.login_user.account},</c:otherwise>
 			</c:choose>  
@@ -54,9 +61,9 @@
 	                    	<li class="list-group-item">
 	                           <a href="javascript:void(0)" id="repair_info">基本信息</a>
 	                        </li>
-	                        <c:if test="${sessionScope.login_user.role eq 2 }">
+	                        <c:if test="${sessionScope.login_user.role eq 2 and sessionScope.repair_info.isPass eq 2}">
 		                        <li class="list-group-item">
-		                           <a href="javascript:void(0)" id="repair_bike">报修车辆</a>
+		                           <a href="javascript:void(0)" id="repair_bike">已报修车辆</a>
 		                        </li>
 		                    </c:if>
 	                    </c:if>
@@ -70,7 +77,7 @@
 	                           <a href="javascript:void(0)" id="rent_bike">附近车辆</a>
 	                        </li>
 	                        <li class="list-group-item">
-	                           <a href="javascript:void(0)" id="recharge">我要充值</a>
+	                           <a href="javascript:void(0)" id="balance">我的账户</a>
 	                        </li>
 	                    </c:if>
                      </ul>
@@ -84,6 +91,8 @@
         </div>
 	</div>
 	
+	<%@ include file="/WEB-INF/views/bike/add.jsp"%>
+	
 	<script type="text/javascript"
 		src='<c:url value="/web-resources/libs/jquery/jquery-2.1.1.js"/>'></script>
 	<script type="text/javascript"
@@ -94,5 +103,7 @@
 		src='<c:url value="/web-resources/js/user_manage.js"/>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/web-resources/js/bike_manage.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/web-resources/js/repair_manage.js"/>'></script>
 </body>
 </html>

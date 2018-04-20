@@ -8,4 +8,6 @@ public class CommonConstants {
 	public static final String LOGIN_USER = "login_user";
 	
 	public static final String USER_INFO = "user_info";
+	
+	public static final String REPAIR_INFO = "repair_info";
 }

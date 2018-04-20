@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cisau.common.model.Pager;
 import com.cisau.dao.UserDao;
+import com.cisau.model.RepairInfo;
 import com.cisau.model.User;
 import com.cisau.model.UserInfo;
 
@@ -23,40 +24,53 @@ public class UserService {
 		return this.dao.queryUserByAccount(account);
 	}
 
+	public UserInfo info(String account) {
+		UserInfo userInfo = this.dao.queryUserInfoByAccount(account);
+		return userInfo;
+	}
+	
 	public Pager list() {
 		Pager pager = new Pager();
-		pager.init(this.dao.countUsers());
-		List<User> datas = this.dao.queryUsers(pager.getPageOffset(), pager.getPageSize());
+		pager.init(this.dao.countUsers(3));
+		List<User> datas = this.dao.queryUsers(3, pager.getPageOffset(), pager.getPageSize());
 		pager.setDatas(datas);
 		return pager;
 	}
 
 	@Transactional
 	public int save(User user) {
-		user.setStatus(1);
 		int i = this.dao.insertUser(user);
-
-		UserInfo userInfo = new UserInfo();
-		userInfo.setAccount(user.getAccount());
-		userInfo.setNickname("GX_" + user.getAccount());
-		userInfo.setBalance(BigDecimal.ZERO);
-		this.dao.insertUserInfo(userInfo);
+		if (User.ROLE_USER == user.getRole()) {
+			UserInfo userInfo = user.getUserInfo();
+			userInfo.setAccount(user.getAccount());
+			if (StringUtils.isEmpty(userInfo.getNickname())) {
+				userInfo.setNickname("GX_" + user.getAccount());
+			}
+			userInfo.setBalance(BigDecimal.ZERO);
+			userInfo.setStatus(1);
+			if (StringUtils.isEmpty(userInfo.getBirthday())) {
+				userInfo.setBirthday(null);
+			}
+			this.dao.insertUserInfo(userInfo);
+		}
+		
+		if (User.ROLE_REPAIR == user.getRole()) {
+			RepairInfo repairInfo = user.getRepairInfo();
+			repairInfo.setAccount(user.getAccount());
+			if (StringUtils.isEmpty(repairInfo.getBirthday())) {
+				repairInfo.setBirthday(null);
+			}
+			this.dao.insertRepairInfo(repairInfo);
+		}
 
 		return i;
 	}
-	
-	@Transactional
-	public int update(User user) {
-		int i = this.updateUser(user);
-		this.updateUserInfo(user.getUserInfo());
-		return i;
-	}
-	
+
 	@Transactional
 	public int updateUser(User user) {
 		return this.dao.updateUser(user);
 	}
-	
+
 	@Transactional
 	public int updateUserInfo(UserInfo userInfo) {
 		return this.dao.updateUserInfo(userInfo);
@@ -69,11 +83,27 @@ public class UserService {
 		}
 
 		if (StringUtils.equals(password, user.getPassword())) {
-			UserInfo userInfo = this.dao.queryUserInfoByAccount(account);
-			user.setUserInfo(userInfo);
-			return user;
+			if (User.ROLE_USER == user.getRole()) {
+				UserInfo userInfo = this.dao.queryUserInfoByAccount(account);
+				user.setUserInfo(userInfo);
+				return user;
+			}
+			
+			if (User.ROLE_REPAIR == user.getRole()) {
+				RepairInfo repairInfo = this.dao.queryRepairInfoByAccount(account);
+				user.setRepairInfo(repairInfo);
+				return user;
+			}
 		}
 
-		return null;
+		return user;
+	}
+
+	public Pager nearBikeList(String place) {
+		Pager pager = new Pager();
+		pager.init(this.dao.countNearBike(place));
+		List<User> datas = this.dao.queryNearBikes(place, pager.getPageOffset(), pager.getPageSize());
+		pager.setDatas(datas);
+		return pager;
 	}
 }

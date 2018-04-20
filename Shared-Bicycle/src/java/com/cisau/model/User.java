@@ -9,8 +9,8 @@ public class User implements Serializable {
 	private String account;
 	private String password;
 	private int role; // 1:管理员，2：维修人员，3：用户
-	private Integer status; // 是否激活-1：激活，0：未激活
 	private UserInfo userInfo;
+	private RepairInfo repairInfo;
 
 	public String getAccount() {
 		return account;
@@ -36,18 +36,6 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public UserInfo getUserInfo() {
 		return userInfo;
 	}
@@ -55,4 +43,16 @@ public class User implements Serializable {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+
+	public RepairInfo getRepairInfo() {
+		return repairInfo;
+	}
+
+	public void setRepairInfo(RepairInfo repairInfo) {
+		this.repairInfo = repairInfo;
+	}
+	
+	public static final int ROLE_ADMIN = 1;
+	public static final int ROLE_REPAIR = 2;
+	public static final int ROLE_USER = 3;
 }

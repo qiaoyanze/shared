@@ -25,17 +25,8 @@ public class BikeController {
 	@Autowired
 	private BikeService bikeService;
 
-	@GetMapping(value = "exists")
-	public ResponseEntity exists(String bikeCode) {
-		Bike bike = this.bikeService.queryByCode(bikeCode);
-		if (bike == null) {
-			return new ResponseEntity(500, "单车不存在，允许添加");
-		} else {
-			return new ResponseEntity(200, "单车已存在");
-		}
-	}
-	
 	@GetMapping(value = "{bikeCode}")
+	@ResponseBody
 	public ResponseEntity queryByCode(@PathVariable("bikeCode") String bikeCode) {
 		Bike bike = this.bikeService.queryByCode(bikeCode);
 		if (bike == null) {
@@ -50,6 +41,13 @@ public class BikeController {
 		Pager pager = this.bikeService.list();
 		model.addAttribute("pager", pager);
 		return "bike/list";
+	}
+	
+	@GetMapping(value = "repair/list")
+	public String repairList(Model model) {
+		Pager pager = this.bikeService.repairList();
+		model.addAttribute("pager", pager);
+		return "bike/repairList";
 	}
 
 	@PostMapping(value = "add")
@@ -76,19 +74,19 @@ public class BikeController {
 	@ResponseBody
 	public ResponseEntity update(Bike bike) {
 		if (bike == null) {
-			return new ResponseEntity(500, "更新失败");
+			return new ResponseEntity(500, "操作失败");
 		}
 
 		try {
 			int i = this.bikeService.update(bike);
 			if (i <= 0) {
-				return new ResponseEntity(500, "更新失败");
+				return new ResponseEntity(500, "操作失败");
 			}
 		} catch (Exception e) {
-			logger.error("更新单车[{}]异常", bike.getBikeCode(), e);
-			return new ResponseEntity(500, "更新失败");
+			logger.error("修改单车[{}]信息异常", bike.getBikeCode(), e);
+			return new ResponseEntity(500, "操作失败");
 		}
 
-		return new ResponseEntity(200, "更新成功");
+		return new ResponseEntity(200, "操作成功");
 	}
 }

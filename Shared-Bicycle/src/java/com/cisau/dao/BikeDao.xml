@@ -3,9 +3,9 @@
 <mapper namespace="com.cisau.dao.BikeDao">
 	<insert id="insert" parameterType="Object">
 		INSERT INTO `t_bike` 
-			(`bike_code`, `bike_password`, `place`, `status`, `repair_time`) 
+			(`bike_code`, `bike_password`, `bike_brand`, `place`, `status`, `repair_time`) 
 		VALUES 
-			(#{bikeCode}, #{bikePassword}, #{place}, #{status}, #{repairTime})
+			(#{bikeCode}, #{bikePassword}, #{bikeBrand}, #{place}, #{status}, #{repairTime})
 	</insert>
 	
 	<update id="update">
@@ -14,7 +14,7 @@
 			<if test="place != null and place != ''">
 				place = #{place},
 			</if>
-			<if test="status != null">
+			<if test="status != null and status != 0">
 				status = #{status},
 			</if>
 			<if test="repairTime != null and repairTime != ''">
@@ -34,5 +34,13 @@
 	
 	<select id="queryList" resultType="com.cisau.model.Bike">
 		SELECT * FROM t_bike LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countRepairBike" resultType="int">
+		SELECT COUNT(*) FROM t_bike WHERE status = 2
+	</select>
+	
+	<select id="queryRepairBikes" resultType="com.cisau.model.Bike">
+		SELECT * FROM t_bike WHERE status = 2 LIMIT #{pageOffset},#{pageSize}
 	</select>
 </mapper>

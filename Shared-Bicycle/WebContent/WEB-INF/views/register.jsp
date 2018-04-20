@@ -55,6 +55,66 @@
 							</div>
 						</div>
 						
+						<div id="user_info">
+							<div class="form-group">
+								<label for="date">昵称：</label> 
+								<input type="text"
+									class="form-control" name="userInfo.nickname" placeholder="昵称">
+							</div>
+							<div class="form-group">
+								<label for="gender">性别：</label> 
+								<div>
+									<label class="radio-inline"> 
+										<input type="radio" checked="checked" name="userInfo.gender" value="1"> 男
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="userInfo.gender" value="2">女
+									</label> 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="birthday">出生日期：</label> 
+								<input type="date"
+									class="form-control" name="userInfo.birthday" placeholder="出生日期">
+							</div>
+						</div>
+						
+						<div id="repair_info" style="display: none;">
+							<div class="form-group">
+								<label for="realname">真实姓名：</label> 
+								<input type="text"
+									class="form-control" name="repairInfo.realname" placeholder="真实姓名">
+							</div>
+							<div class="form-group">
+								<label for="idNo">身份证号：</label> 
+								<input type="text"
+									class="form-control" name="repairInfo.idNo" placeholder="身份证号">
+							</div>
+							<div class="form-group">
+								<label for="mobile">手机号：</label> 
+								<input type="tel"
+									class="form-control" name="repairInfo.mobile" placeholder="手机号">
+							</div>
+							<div class="form-group">
+								<label for="gender">性别：</label> 
+								<div>
+									<label class="radio-inline"> 
+										<input type="radio" checked="checked" name="repairInfo.gender" value="1"> 男
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="repairInfo.gender" value="2">女
+									</label> 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="date">出生日期：</label> 
+								<input type="date"
+									class="form-control" name="repairInfo.birthday" placeholder="出生日期">
+							</div>
+						</div>
+						
+						
+						
 						<div class="form-group">
 							<input class="btn btn-primary" type="button" id="register_submit" value="提交"/>
 						</div>

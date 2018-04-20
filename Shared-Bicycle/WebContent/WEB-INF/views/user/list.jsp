@@ -34,15 +34,15 @@
 									<td>${data.userInfo.place }</td>
 									<td>${data.userInfo.balance }</td>
 									<td>
-										<c:if test="${data.status eq '0' }">冻结</c:if>
-										<c:if test="${data.status eq '1' }">激活</c:if>
+										<c:if test="${data.userInfo.status eq '1' }">激活</c:if>
+										<c:if test="${data.userInfo.status eq '2' }">冻结</c:if>
 									</td>
 									<td>
-										<a href="javascript:void(0)" class="status" status="${data.status}" account="${data.account }">
-											<c:if test="${data.status eq '0' }">
+										<a href="javascript:void(0)" class="status" status="${data.userInfo.status}" account="${data.account }">
+											<c:if test="${data.userInfo.status eq '2' }">
 												激活
 											</c:if>
-											<c:if test="${data.status eq '1' }">
+											<c:if test="${data.userInfo.status eq '1' }">
 												冻结
 											</c:if>
 										</a>

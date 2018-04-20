@@ -2,7 +2,7 @@
 	<properties>
 		<property name="LOG_HOME">/logs</property>
 		<property name="ALL_LOG_NAME">all</property>
-		<property name="ERROR_LOG_NAME">rror</property>
+		<property name="ERROR_LOG_NAME">error</property>
 		<property name="LOG_LEVEL">INFO</property>
 	</properties>
 	<Appenders>
