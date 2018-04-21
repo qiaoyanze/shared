@@ -30,7 +30,7 @@
 	
 =============================================
 
-系统环境：jdk 1.7及以上
+系统环境：jdk 1.7+、tomcat7+
 数据库：    MySQL 5.6
 开发工具：eclipse
 技术框架：spring + springMVC + mybatis
