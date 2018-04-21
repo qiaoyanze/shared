@@ -37,6 +37,8 @@
 						<input type="button" class="btn btn-default" id="login" value="登录" />
 					</div>
 					<div class="form-group register">
+						<a href="/forget">忘记密码?</a>
+						&nbsp;&nbsp; | &nbsp;&nbsp;
 						<a href="/register">没有账号，点此注册</a>						
 					</div>
 				</form>

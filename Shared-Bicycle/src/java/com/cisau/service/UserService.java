@@ -92,6 +92,10 @@ public class UserService {
 		}
 
 		if (StringUtils.equals(password, user.getPassword())) {
+			if (User.ROLE_ADMIN == user.getRole()) {
+				return user;
+			}
+			
 			if (User.ROLE_USER == user.getRole()) {
 				UserInfo userInfo = this.dao.queryUserInfoByAccount(account);
 				user.setUserInfo(userInfo);
@@ -105,7 +109,7 @@ public class UserService {
 			}
 		}
 
-		return user;
+		return null;
 	}
 
 	public Pager nearBikeList(String place) {

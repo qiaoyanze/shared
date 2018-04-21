@@ -60,6 +60,43 @@ public class LoginController {
 
 		return new ResponseEntity(200, "注册成功");
 	}
+	
+	
+	@GetMapping(value = "forget")
+	public String forget() {
+		return "forget";
+	}
+	
+	@GetMapping(value = "forget/{account}")
+	@ResponseBody
+	public ResponseEntity userForget(@PathVariable("account") String account) {
+		User user = this.userService.queryByAccount(account);
+		if (user == null) {
+			return new ResponseEntity(500, "账号不存在");
+		} else {
+			return new ResponseEntity(200, "");
+		}
+	}
+	
+	@PostMapping(value = "forget")
+	@ResponseBody
+	public ResponseEntity forget(User user) {
+		if (user == null) {
+			return new ResponseEntity(500, "重置失败");
+		}
+
+		try {
+			int i = this.userService.updateUser(user);
+			if (i <= 0) {
+				return new ResponseEntity(500, "重置失败");
+			}
+		} catch (Exception e) {
+			logger.error("账号[{}]重置密码异常", user.getAccount(), e);
+			return new ResponseEntity(500, "重置失败");
+		}
+
+		return new ResponseEntity(200, "重置成功");
+	}
 
 	@GetMapping(value = "login")
 	public String loginPage() {

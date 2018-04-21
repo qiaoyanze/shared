@@ -49,6 +49,7 @@ private static final Logger LOGGER = LogManager.getLogger();
 			List<String> exceptionURLs = new ArrayList<String>();
 			exceptionURLs.add("login");
 			exceptionURLs.add("register");
+			exceptionURLs.add("forget");
 			exceptionURLs.add("web-resources");
 			// 是否包含未登录也可访问的URL
 			boolean hasRight = false;
