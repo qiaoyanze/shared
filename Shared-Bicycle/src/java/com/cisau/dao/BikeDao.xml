@@ -3,9 +3,23 @@
 <mapper namespace="com.cisau.dao.BikeDao">
 	<insert id="insert" parameterType="Object">
 		INSERT INTO `t_bike` 
-			(`bike_code`, `bike_password`, `bike_brand`, `place`, `status`, `repair_time`) 
+			(`bike_code`, `bike_password`, `bike_brand`, `place`, `geo_code`, `status`) 
 		VALUES 
-			(#{bikeCode}, #{bikePassword}, #{bikeBrand}, #{place}, #{status}, #{repairTime})
+			(#{bikeCode}, #{bikePassword}, #{bikeBrand}, #{place}, #{geoCode}, #{status})
+	</insert>
+	
+	<insert id="insertRentBike" parameterType="Object">
+		INSERT INTO `t_rent_bike` 
+			(`account`, `bike_code`, `rent_time`) 
+		VALUES 
+			(#{account}, #{bikeCode}, #{rentTime})
+	</insert>
+	
+	<insert id="insertRepairBike" parameterType="Object">
+		INSERT INTO `t_repair_bike` 
+			(`account`, `bike_code`, `repair_place`, `repair_time`) 
+		VALUES 
+			(#{account}, #{bikeCode}, #{repairPlace}, #{repairTime})
 	</insert>
 	
 	<update id="update">
@@ -14,14 +28,27 @@
 			<if test="place != null and place != ''">
 				place = #{place},
 			</if>
+			<if test="geoCode != null and geoCode != ''">
+				geo_code = #{geoCode},
+			</if>
 			<if test="status != null and status != 0">
 				status = #{status},
 			</if>
-			<if test="repairTime != null and repairTime != ''">
-				repair_time = #{repairTime},
-			</if>
 		</set>
 		WHERE bike_code = #{bikeCode}
+	</update>
+	
+	<update id="updateRentBike">
+		UPDATE t_rent_bike
+		<set>
+			<if test="returnTime != null">
+				return_time = #{returnTime},
+			</if>
+			<if test="returnPlace != null and returnPlace != ''">
+				return_place = #{returnPlace},
+			</if>
+		</set>
+		WHERE account = #{account} AND bike_code = #{bikeCode}
 	</update>
 	
 	<select id="queryByCode" resultType="com.cisau.model.Bike">
@@ -33,14 +60,47 @@
 	</select>
 	
 	<select id="queryList" resultType="com.cisau.model.Bike">
-		SELECT * FROM t_bike LIMIT #{pageOffset},#{pageSize}
+		SELECT * FROM t_bike ORDER BY id DESC LIMIT #{pageOffset},#{pageSize}
 	</select>
 	
 	<select id="countRepairBike" resultType="int">
-		SELECT COUNT(*) FROM t_bike WHERE status = 2
+		SELECT COUNT(*) FROM
+			t_repair_bike t1
+		LEFT JOIN t_bike t2 ON t1.bike_code = t2.bike_code
+		WHERE
+			t2.`status` = 3
 	</select>
 	
-	<select id="queryRepairBikes" resultType="com.cisau.model.Bike">
-		SELECT * FROM t_bike WHERE status = 2 LIMIT #{pageOffset},#{pageSize}
+	<select id="queryRepairBikes" resultType="com.cisau.model.RepairBikeDto">
+		SELECT
+			t2.bike_code,
+			t2.bike_brand,
+			t1.repair_time,
+			t1.repair_place
+		FROM
+			t_repair_bike t1
+		LEFT JOIN t_bike t2 ON t1.bike_code = t2.bike_code
+		WHERE
+			t2.`status` = 3
+		LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countNearBike" resultType="int">
+		SELECT COUNT(*) FROM t_bike WHERE status = 1 AND geo_code = #{geoCode}
+	</select>
+	
+	<select id="queryNearBikes" resultType="com.cisau.model.Bike">
+		SELECT * FROM t_bike WHERE status = 1 AND geo_code = #{geoCode} LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="queryRentingBike" resultType="com.cisau.model.Bike">
+		SELECT 
+			t2.bike_code,
+			t2.bike_brand
+		FROM t_rent_bike t1
+		LEFT JOIN t_bike t2 ON t1.bike_code = t2.bike_code
+		WHERE t2.status = 2
+		AND account = #{account} 
+		LIMIT 1
 	</select>
 </mapper>

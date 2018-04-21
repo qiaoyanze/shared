@@ -19,12 +19,11 @@
 				<thead>
 					<tr>
 						<th>序号</th>
-						<th>单车号</th>
+						<th>单车编号</th>
 						<th>单车密码</th>
 						<th>单车品牌</th>
 						<th>投放位置</th>
 						<th>单车状态</th>
-						<th>报修时间</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -48,21 +47,24 @@
 									<td>${data.place }</td>
 									<td>
 										<c:if test="${data.status eq '1' }">正常</c:if>
-										<c:if test="${data.status eq '2' }">报修</c:if>
-										<c:if test="${data.status eq '3' }">回收下线</c:if>
+										<c:if test="${data.status eq '2' }">租车</c:if>
+										<c:if test="${data.status eq '3' }">报修</c:if>
+										<c:if test="${data.status eq '4' }">回收下线</c:if>
 									</td>
-									<td><fmt:formatDate value="${data.repairTime }" dateStyle="both"/></td>
 									<td>
-										<a href="javascript:void(0)" class="update_bike"  bike_code="${data.bikeCode }">
-											修改
-										</a>
-										&nbsp;
-										&nbsp;
-										<c:if test="${data.status ne 3 }">
+										<c:if test="${data.status eq 1 }">
+											<a href="javascript:void(0)" class="update_bike"  bike_code="${data.bikeCode }">
+												修改
+											</a>
+											&nbsp;
+											&nbsp;
+										</c:if>	
+											
+										<c:if test="${data.status eq 1 or data.status eq 3 }">
 											<a href="javascript:void(0)" class="collect"  bike_code="${data.bikeCode }">
 												回收下线
 											</a>	
-										</c:if>									
+										</c:if>						
 									</td>
 								</tr>
 							</c:forEach>

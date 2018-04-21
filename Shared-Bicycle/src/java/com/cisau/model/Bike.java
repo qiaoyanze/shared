@@ -1,15 +1,13 @@
 package com.cisau.model;
 
-import java.util.Date;
-
 public class Bike {
 
 	private String bikeCode;
 	private String bikePassword;
 	private int bikeBrand; // 单车品牌-1：ofo单车,2：摩拜单车，3：哈罗单车
-	private String place; // 投放点
-	private int status; // 单车状态- 1：正常，2：报修，3：回收下线
-	private Date repairTime; // 报修时间
+	private String geoCode; // geo编码
+	private String place; // 投放地点
+	private int status; // 单车状态- 1：正常，2：租车，3：报修，4：回收下线
 
 	public String getBikeCode() {
 		return bikeCode;
@@ -43,19 +41,19 @@ public class Bike {
 		return status;
 	}
 	
+	public String getGeoCode() {
+		return geoCode;
+	}
+
+	public void setGeoCode(String geoCode) {
+		this.geoCode = geoCode;
+	}
+
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
-	}
-
-	public Date getRepairTime() {
-		return repairTime;
-	}
-
-	public void setRepairTime(Date repairTime) {
-		this.repairTime = repairTime;
 	}
 }

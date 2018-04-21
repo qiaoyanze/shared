@@ -1,5 +1,7 @@
 package com.cisau.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cisau.common.constants.CommonConstants;
 import com.cisau.common.model.Pager;
 import com.cisau.common.model.ResponseEntity;
 import com.cisau.model.Bike;
+import com.cisau.model.User;
 import com.cisau.service.BikeService;
 
 @Controller
@@ -72,13 +76,14 @@ public class BikeController {
 	
 	@PostMapping(value = "update")
 	@ResponseBody
-	public ResponseEntity update(Bike bike) {
+	public ResponseEntity update(Bike bike,HttpSession session) {
 		if (bike == null) {
 			return new ResponseEntity(500, "操作失败");
 		}
 
 		try {
-			int i = this.bikeService.update(bike);
+			User user = (User) session.getAttribute(CommonConstants.LOGIN_USER);
+			int i = this.bikeService.update(bike,user.getAccount());
 			if (i <= 0) {
 				return new ResponseEntity(500, "操作失败");
 			}

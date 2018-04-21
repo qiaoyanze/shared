@@ -28,8 +28,9 @@
 						<div class="form-group">
 							<label for="inputText" class="col-sm-2 control-label">投放位置：</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="place"
-									name="place" placeholder="投放位置">
+								<select class="form-control" id="place" name="place">
+								  
+								</select>
 							</div>
 						</div>
 					</form>
@@ -76,8 +77,9 @@
 						<div class="form-group">
 							<label for="inputText" class="col-sm-2 control-label">投放位置：</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="place"
-									name="place" placeholder="投放位置">
+								<select class="form-control" id="place" name="place">
+								  
+								</select>
 							</div>
 						</div>
 					</form>

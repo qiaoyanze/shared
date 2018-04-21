@@ -16,8 +16,7 @@
 						<th>序号</th>
 						<th>账号</th>
 						<th>昵称</th>
-						<th>位置</th>
-						<th>余额</th>
+						<th>余额/元</th>
 						<th>状态</th>
 						<th>操作</th>
 					</tr>
@@ -31,7 +30,6 @@
 									<td>${stat.count + pager.pageOffset }</td>
 									<td>${data.account }</td>
 									<td>${data.userInfo.nickname }</td>
-									<td>${data.userInfo.place }</td>
 									<td>${data.userInfo.balance }</td>
 									<td>
 										<c:if test="${data.userInfo.status eq '1' }">激活</c:if>

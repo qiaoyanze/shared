@@ -14,7 +14,7 @@
 				<thead>
 					<tr>
 						<th>序号</th>
-						<th>单车号</th>
+						<th>单车编号</th>
 						<th>单车品牌</th>
 						<th>报修位置</th>
 						<th>报修时间</th>
@@ -36,8 +36,8 @@
 											<c:otherwise>其他</c:otherwise>
 										</c:choose>
 									</td>
-									<td>${data.place }</td>
-									<td><fmt:formatDate value="${data.repairTime }" dateStyle="both"/></td>
+									<td>${data.repairPlace }</td>
+									<td><fmt:formatDate value="${data.repairTime }" type="both"/></td>
 								</tr>
 							</c:forEach>
 						</c:when>

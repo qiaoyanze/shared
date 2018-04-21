@@ -54,6 +54,9 @@
 	                        <li class="list-group-item">
 	                           <a href="javascript:void(0)" id="repair_manage">维修人员管理</a>
 	                        </li>
+	                        <li class="list-group-item">
+	                           <a href="javascript:void(0)" id="location_manage">位置管理</a>
+	                        </li>
 	                    </c:if>
                     	
                     	<!-- 维修 -->
@@ -74,10 +77,13 @@
 	                           <a href="javascript:void(0)" id="user_info">基本信息</a>
 	                        </li>
 	                        <li class="list-group-item">
+	                           <a href="javascript:void(0)" id="balance">我的账户</a>
+	                        </li>
+	                        <li class="list-group-item">
 	                           <a href="javascript:void(0)" id="rent_bike">附近车辆</a>
 	                        </li>
 	                        <li class="list-group-item">
-	                           <a href="javascript:void(0)" id="balance">我的账户</a>
+	                           <a href="javascript:void(0)" id="my_repair">我报修的车辆</a>
 	                        </li>
 	                    </c:if>
                      </ul>
@@ -105,5 +111,9 @@
 		src='<c:url value="/web-resources/js/bike_manage.js"/>'></script>
 	<script type="text/javascript"
 		src='<c:url value="/web-resources/js/repair_manage.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/web-resources/js/near_bike.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/web-resources/js/location_manage.js"/>'></script>
 </body>
 </html>

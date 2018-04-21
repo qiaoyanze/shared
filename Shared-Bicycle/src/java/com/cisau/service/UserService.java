@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cisau.common.model.Pager;
+import com.cisau.dao.BikeDao;
 import com.cisau.dao.UserDao;
+import com.cisau.model.Bike;
+import com.cisau.model.RepairBikeDto;
 import com.cisau.model.RepairInfo;
 import com.cisau.model.User;
 import com.cisau.model.UserInfo;
@@ -19,6 +22,8 @@ public class UserService {
 
 	@Autowired
 	private UserDao dao;
+	@Autowired
+	private BikeDao bikeDao;
 
 	public User queryByAccount(String account) {
 		return this.dao.queryUserByAccount(account);
@@ -73,6 +78,10 @@ public class UserService {
 
 	@Transactional
 	public int updateUserInfo(UserInfo userInfo) {
+		UserInfo info = this.dao.queryUserInfoByAccount(userInfo.getAccount());
+		if (info.getBalance() != null) {
+			userInfo.setBalance(info.getBalance().add(userInfo.getBalance()));
+		}
 		return this.dao.updateUserInfo(userInfo);
 	}
 
@@ -100,9 +109,18 @@ public class UserService {
 	}
 
 	public Pager nearBikeList(String place) {
+		String[] split = place.split(",");
 		Pager pager = new Pager();
-		pager.init(this.dao.countNearBike(place));
-		List<User> datas = this.dao.queryNearBikes(place, pager.getPageOffset(), pager.getPageSize());
+		pager.init(this.bikeDao.countNearBike(split[0]));
+		List<Bike> datas = this.bikeDao.queryNearBikes(split[0], pager.getPageOffset(), pager.getPageSize());
+		pager.setDatas(datas);
+		return pager;
+	}
+
+	public Pager myRepairBikeList(String account) {
+		Pager pager = new Pager();
+		pager.init(this.dao.countRepairBikesByAccount(account));
+		List<RepairBikeDto> datas = this.dao.queryRepairBikesByAccount(account,pager.getPageOffset(), pager.getPageSize());
 		pager.setDatas(datas);
 		return pager;
 	}

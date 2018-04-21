@@ -101,3 +101,28 @@ var user_manage = {
 		})
 	}
 }
+
+
+var my_repair = {
+	list : function() {
+		$('#content').load("/user/myrepair/list");
+	},
+	nextPage : function(number){
+		var curPage = $("#my_repair_page").find("#curPage").val();
+		curPage = parseInt(curPage);
+		var totalpage = $("#my_repair_page").find("#totalPage").val();
+		totalpage = parseInt(totalpage);
+
+		var nextCurPage = curPage + number;
+		if (nextCurPage == 0) {
+			nextCurPage = 1;
+		} else if (nextCurPage > totalpage) {
+			nextCurPage = totalpage;
+		}
+
+		my_repair.list(nextCurPage);
+	},
+	goPage : function(cur_page) {
+		my_repair.list(cur_page);
+	}
+}

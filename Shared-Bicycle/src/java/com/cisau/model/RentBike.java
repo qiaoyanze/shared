@@ -8,7 +8,7 @@ public class RentBike {
 	private String bikeCode;
 	private Date rentTime; // 租车时间
 	private Date returnTime; // 换车时间
-	private double returnPlace;// 还车地点
+	private String returnPlace;// 还车地点
 
 	public String getAccount() {
 		return account;
@@ -42,11 +42,11 @@ public class RentBike {
 		this.returnTime = returnTime;
 	}
 
-	public double getReturnPlace() {
+	public String getReturnPlace() {
 		return returnPlace;
 	}
 
-	public void setReturnPlace(double returnPlace) {
+	public void setReturnPlace(String returnPlace) {
 		this.returnPlace = returnPlace;
 	}
 }

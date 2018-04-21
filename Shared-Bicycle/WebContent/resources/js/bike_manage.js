@@ -78,7 +78,7 @@ var bike_manage = {
 		$(".collect").each(function(){
 			$(this).on('click',function(){
 				var bike_code = $(this).attr('bike_code');
-				$.post('/bike/update',{'bikeCode':bike_code,'status':3},function(result){
+				$.post('/bike/update',{'bikeCode':bike_code,'status':4},function(result){
 					var isSuccess = result.code;
 					var msg = result.msg;
 					if(isSuccess == 200) {
@@ -107,6 +107,7 @@ var bike_manage = {
 	openUpdateModal : function() {
 		$(".update_bike").each(function(){
 			$(this).on('click',function(){
+				bike_manage.refresh_update_select();
 				var bike_code = $(this).attr('bike_code');
 				// 初始化数据
 				$.get('/bike/'+bike_code,{},function(result){
@@ -118,7 +119,7 @@ var bike_manage = {
 						update_form.find('#bikeCode').val(data.bikeCode);
 						update_form.find('#bikeBrand').val(data.bikeBrand);
 						update_form.find('#bikeBrand_req').val(data.bikeBrand);
-						update_form.find('#place').val(data.place);
+						update_form.find("#place option[value='"+data.geoCode+","+data.place+"']").attr("selected","selected"); 
 					}
 				});
 				
@@ -128,6 +129,8 @@ var bike_manage = {
 					keyboard:false,
 					show:true
 				});
+				
+				
 			});
 		})
 	},
@@ -141,6 +144,18 @@ var bike_manage = {
 	    $('#bike_manage_update_modal').on('hidden.bs.modal', function (e) {
 	    	$('#bike_manage_update_form')[0].reset();
 	   	})
+	},
+	refresh_update_select: function(){
+		var update_form = $("#bike_manage_update_form");
+		$.get('/location/dicts',function(data){
+			update_form.find("#place").removeAll();
+    		if (data.length > 0) {
+				update_form.find("#place").append(" <option value=\"\"></option>");
+				$.each(data, function (i, n) {
+					update_form.find("#place").append(" <option value=\"" + n.geoCode + "," + n.name + "\">" + n.name + "</option>");
+                })
+			}
+    	})
 	}
 }
 

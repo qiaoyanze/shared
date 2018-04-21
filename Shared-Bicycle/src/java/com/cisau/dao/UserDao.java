@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cisau.model.RepairBikeDto;
 import com.cisau.model.RepairInfo;
 import com.cisau.model.User;
 import com.cisau.model.UserInfo;
@@ -38,7 +39,8 @@ public interface UserDao {
 	List<User> queryRepairUsers(@Param("role") int role, @Param("pageOffset") int pageOffset,
 			@Param("pageSize") int pageSize);
 
-	int countNearBike(String place);
+	int countRepairBikesByAccount(String account);
 
-	List<User> queryNearBikes(@Param("place") String place, int pageOffset, int pageSize);
+	List<RepairBikeDto> queryRepairBikesByAccount(@Param("account") String account, @Param("pageOffset") int pageOffset,
+			@Param("pageSize") int pageSize);
 }

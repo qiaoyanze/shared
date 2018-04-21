@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cisau.dao.PlaceDictDao">
+	<insert id="insert" parameterType="Object">
+		INSERT INTO `t_place_dict` 
+			(`name`, `lon`, `lat`, `geo_code`) 
+		VALUES 
+			(#{name}, #{lon}, #{lat}, #{geoCode})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM t_place_dict WHERE name = #{name}
+	</delete>
+	
+	<select id="queryByName" resultType="com.cisau.model.PlaceDict">
+		SELECT * FROM t_place_dict WHERE name = #{name}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM t_place_dict
+	</select>
+	
+	<select id="queryList" resultType="com.cisau.model.PlaceDict">
+		SELECT * FROM t_place_dict LIMIT #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="queryDicts" resultType="com.cisau.model.PlaceDict">
+		SELECT * FROM t_place_dict
+	</select>
+</mapper>

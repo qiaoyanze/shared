@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<table id="near_bike_table" class="table table-bordered table-condensed"> 
+	<table id="my_repair_table" class="table table-bordered table-condensed"> 
 		<thead>
 			<tr>
 				<th>序号</th>
 				<th>车辆编号</th>
-				<th>车辆密码</th>
 				<th>车辆品牌</th>
-				<th>操作</th>
+				<th>报修位置</th>
+				<th>报修时间</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,7 +23,6 @@
 						<tr>
 							<td>${stat.count + pager.pageOffset }</td>
 							<td>${data.bikeCode }</td>
-							<td>${data.bikePassword }</td>
 							<td>
 								<c:choose>
 									<c:when test="${data.bikeBrand eq 1 }">ofo单车</c:when>
@@ -32,15 +31,9 @@
 									<c:otherwise>其他</c:otherwise>
 								</c:choose>
 							</td>
+							<td>${data.repairPlace }</td>
 							<td>
-								<a href="javascript:void(0)" class="rent_bike" bike_code="${data.bikeCode}">
-									我要租车
-								</a>
-								&nbsp;
-								&nbsp;
-								<a href="javascript:void(0)" class="repair_bike" bike_code="${data.bikeCode}">
-									我要报修
-								</a>
+								<fmt:formatDate value="${data.repairTime }" type="both"/>
 							</td>
 						</tr>
 					</c:forEach>
@@ -54,9 +47,9 @@
 		</tbody>
 	</table>
 	
-	<div id="near_bike_page" style="float: right;"> 
+	<div id="my_repair_page" style="float: right;"> 
 		<jsp:include page="/WEB-INF/views/page.jsp">
-			<jsp:param value="near_bike" name="type"/>
+			<jsp:param value="my_repair" name="type"/>
 		</jsp:include>
 	</div>
 </body>
