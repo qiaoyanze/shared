@@ -32,9 +32,9 @@
 				<div class="panel-body">
 					<form class="form-horizontal" id="register_form">
 						<div class="form-group">
-							<label for="account">账号：</label> <input type="text"
+							<label for="account">账号：</label> <input type="tel"
 								class="form-control" id="account" name="account"
-								placeholder="手机号/字母数字组合">
+								placeholder="手机号">
 						</div>
 						<div class="form-group">
 							<label for="passwd">密码：</label> <input type="password"
